@@ -34,3 +34,20 @@ def step_have_invalid_data(context):
 @when("Я создаю заметку со случайным не валидным title")
 def step_create_note(context):
     context.response = context.note.create_note(context.data)
+
+@given("Я имею две созданные заметки заметки note_1 и note_2")
+def step_have_valid_data(context):
+    context.note_1, context.note_2 = get_note_data(2, True)
+    context.note_api = NoteServiceApi()
+    context.note_api.delete_note_all()
+    context.note_api.create_note(context.note_1)
+    context.created_note = context.note_api.create_note(context.note_2).json()
+
+@when('Я удаляю заметку note_2 по ее id')
+def step_delete_note_by_valid_id(context):
+    context.response = context.note_api.delete_note_by_id(context.created_note["id"])
+
+@then('текст в теле ответа "{body_response_text}"')
+def step_check_response(context, body_response_text):
+    expected_data = {"detail": body_response_text}
+    check_json_data(context.response, expected_data, "detail")
