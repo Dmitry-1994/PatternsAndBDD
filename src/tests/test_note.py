@@ -1,8 +1,8 @@
-# Создание заметок. Успешное создание заметки с валидными данными
 from src.api.note_api import NoteServiceApi
 from src.utils.helpers import get_note_data, check_status_code, check_json_data, check_json_data_all, get_id
 
 
+# Создание заметок. Успешное создание заметки с валидными данными
 def test_success_create_note_with_valid_data():
     data1 = get_note_data(1, True)
     note_api = NoteServiceApi()

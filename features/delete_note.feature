@@ -1,12 +1,13 @@
-Feature: Удаление заметки
-  Scenario: Удаление заметки по валидному id
-    Given Я имею две созданные заметки заметки note_1 и note_2
-    When Я удаляю заметку note_2 по ее id
-    Then статус ответа должен быть "200"
-    And текст в теле ответа "Note deleted"
-#    And созданная заметка имеет корректный "content"
-#
-#  Scenario: Удаление заметки по не валидному id
-#    Given Я имею случайные не валидные данные для создания заметки
-#    When Я создаю заметку со случайным не валидным title
-#    Then статус ответа должен быть "422"
+Feature: Deleting a note
+  Scenario: Deleting a note with a valid id
+    Given I have two created notes notes note_1 and note_2
+    When I am deleting a note_2 by its id
+    Then the response status should be "200"
+    And the text in the body of the "Note deleted" response
+    And the list of received notes consists of note_1
+
+  Scenario: Deleting a note with an invalid id
+    Given I have a random invalid note id.
+    When I am deleting a note with an invalid id.
+    Then the response status should be "404"
+    And the text in the body of the "Note not found" response

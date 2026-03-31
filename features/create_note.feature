@@ -1,12 +1,12 @@
-Feature: Создание заметки
-  Scenario: Успешное создание заметки с валидными данными
-    Given Я имею случайные валидные данные для создания заметки
-    When Я создаю заметку со случайными валидными данными
-    Then статус ответа должен быть "200"
-    And созданная заметка имеет корректный "title"
-    And созданная заметка имеет корректный "content"
+Feature: Creating a note
+  Scenario: Successful creation of a note with valid data
+    Given I have random valid data to create a note.
+    When I'm creating a note with random valid data.
+    Then the response status should be "200"
+    And the created note has the correct "title"
+    And the created note has the correct "content"
 
-  Scenario: Неуспешное создание заметки с не валидными данными
-    Given Я имею случайные не валидные данные для создания заметки
-    When Я создаю заметку со случайным не валидным title
-    Then статус ответа должен быть "422"
+  Scenario: Unsuccessfully creating a note with invalid data
+    Given I have random invalid data to create a note.
+    When I'm creating a note with a random invalid title.
+    Then the response status should be "422"
