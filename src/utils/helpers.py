@@ -10,13 +10,18 @@ def check_status_code(response, expected_status_code):
 
 
 def check_json_data(response, expected, args=None):
-    assert response.json()[args] == expected[args], "Значения ключа в response и expected разные"
+    if args is None:
+        assert response.json() == expected
+    else:
+        assert response.json()[args] == expected[args], "Значения ключа в response и expected разные"
+
 
 
 def check_json_data_all(response, expected: list):
     cnt = 0
     for item_e in expected:
-        for item_r in response.json():
+        response_json = response.json()
+        for item_r in response_json:
             tmp = {
                 "title": item_r["title"],
                 "content": item_r["content"]

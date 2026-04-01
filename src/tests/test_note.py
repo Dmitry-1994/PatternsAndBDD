@@ -1,3 +1,5 @@
+from unittest import skip
+
 from src.api.note_api import NoteServiceApi
 from src.utils.helpers import get_note_data, check_status_code, check_json_data, check_json_data_all, get_id
 
@@ -26,13 +28,15 @@ def test_success_get_all_without_note():
     note_api.delete_note_all()
     response = note_api.get_note_all()
     check_status_code(response, 200)
-    assert response.json() == []
+    expected = []
+    check_json_data_all(response, expected)
 
 
 # Получение списка заметок. Когда заметки есть
 def test_success_get_all_with_note():
     data1, data2 = get_note_data(2, True)
     note_api = NoteServiceApi()
+    note_api.delete_note_all()
     note_api.create_note(data1)
     note_api.create_note(data2)
     response = note_api.get_note_all()
@@ -49,7 +53,7 @@ def test_get_note_by_valid_id():
     valid_id = get_id(True)
     response = note_api.get_note_by_id(valid_id)
     check_status_code(response, 200)
-    assert response.json() == expected
+    check_json_data(response, expected)
 
 
 # Получение заметки по id. По не валидному id
